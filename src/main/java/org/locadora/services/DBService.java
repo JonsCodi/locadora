@@ -6,7 +6,6 @@ import org.locadora.domain.Movie;
 import org.locadora.domain.enums.MovieStatus;
 import org.locadora.repositories.ClientRepository;
 import org.locadora.repositories.MovieRepository;
-import org.locadora.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class DBService {
 
   @Autowired
   private MovieRepository movieRepository;
-
-  private static Logger logger = LoggerFactory.getLogger(DBService.class);
 
   public void instantiateTestDatabase(){
 
@@ -55,8 +52,6 @@ public class DBService {
 
     clientRepository.saveAll(clients);
     movieRepository.saveAll(movies);
-
-    logger.debug(StringUtils.toJson(clients));
 
   }
 
