@@ -1,9 +1,9 @@
 package org.locadora.repositories;
 
-import org.locadora.domain.Filme;
+import org.locadora.domain.Movie;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FilmeRepository extends JpaRepository<Filme, Integer> {}
+public interface MovieRepository extends JpaRepository<Movie, Integer> {}
