@@ -6,8 +6,6 @@ import org.locadora.domain.Movie;
 import org.locadora.domain.enums.MovieStatus;
 import org.locadora.repositories.ClientRepository;
 import org.locadora.repositories.MovieRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +23,7 @@ public class DBService {
   @Autowired
   private MovieRepository movieRepository;
 
-  public void instantiateTestDatabase(){
+  public void instantiateDatabase(){
 
     clientRepository.deleteAllInBatch();
     movieRepository.deleteAllInBatch();
@@ -35,10 +33,10 @@ public class DBService {
     Client xen = new Client("Xen", "xen@hotmail.com", "admin");
 
     Movie django = new Movie("Django", "Tarantino", 0, MovieStatus.UNAVAILABLE);
-    Movie wild = new Movie("Into the Wild", "Sean Penn", 1,MovieStatus.AVAILABLE);
-    Movie dogs = new Movie("Whatchmen", "Zack Snyder", 12, MovieStatus.AVAILABLE);
+    Movie intoWild = new Movie("Into the Wild", "Sean Penn", 1,MovieStatus.AVAILABLE);
+    Movie whatchman = new Movie("Whatchmen", "Zack Snyder", 12, MovieStatus.AVAILABLE);
 
-    List<Movie> movies = Arrays.asList(django, wild, dogs);
+    List<Movie> movies = Arrays.asList(django, intoWild, whatchman);
     List<Client> clients = Arrays.asList(sean, ham, xen);
 
     clientRepository.saveAll(clients);

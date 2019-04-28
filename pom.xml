@@ -12,6 +12,7 @@
     <artifactId>locadora</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>locadora</name>
+    <packaging>jar</packaging>
     <description>API REST para consulta de filmes e suas relacoes entre clientes</description>
 
     <properties>
@@ -56,6 +57,18 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <!-- Framework Spring boot -->
