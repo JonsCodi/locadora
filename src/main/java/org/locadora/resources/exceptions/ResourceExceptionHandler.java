@@ -16,43 +16,24 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *
  ********************************************************************************************************************/
-package org.locadora.domain.enums;
+package org.locadora.resources.exceptions;
 
-public enum MovieStatus {
+import org.locadora.services.exceptions.ObjectNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
-  AVAILABLE(1, "Available"),
-  UNAVAILABLE(2, "Unavailable");
+import javax.servlet.http.HttpServletRequest;
 
-  private int cod;
-  private String description;
+@ControllerAdvice
+public class ResourceExceptionHandler {
 
-  MovieStatus(int cod, String description) {
-    this.cod = cod;
-    this.description = description;
+  @ExceptionHandler(ObjectNotFoundException.class)
+  public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
+
+    StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Not Found!", e.getMessage(), request.getRequestURI());
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
   }
-
-  public int getCod() {
-    return cod;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public static MovieStatus toEnum(Integer cod) {
-
-    if (cod == null) {
-      return null;
-    }
-
-    for (MovieStatus x : MovieStatus.values()) {
-      if (cod.equals(x.getCod())) {
-        return x;
-      }
-    }
-
-    throw new IllegalArgumentException("Invalid Id: " + cod);
-  }
-
-
 }

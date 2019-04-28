@@ -16,43 +16,24 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *
  ********************************************************************************************************************/
-package org.locadora.domain.enums;
+package org.locadora.resources.exceptions;
 
-public enum MovieStatus {
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-  AVAILABLE(1, "Available"),
-  UNAVAILABLE(2, "Unavailable");
+import java.io.Serializable;
 
-  private int cod;
-  private String description;
+@AllArgsConstructor
+@Data
+public class StandardError implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-  MovieStatus(int cod, String description) {
-    this.cod = cod;
-    this.description = description;
-  }
+  private Long timestamp;
+  private Integer status;
+  private String error;
+  private String message;
+  private String path;
 
-  public int getCod() {
-    return cod;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public static MovieStatus toEnum(Integer cod) {
-
-    if (cod == null) {
-      return null;
-    }
-
-    for (MovieStatus x : MovieStatus.values()) {
-      if (cod.equals(x.getCod())) {
-        return x;
-      }
-    }
-
-    throw new IllegalArgumentException("Invalid Id: " + cod);
-  }
 
 
 }

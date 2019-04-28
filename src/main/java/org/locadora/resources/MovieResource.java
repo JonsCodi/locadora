@@ -19,12 +19,16 @@
 package org.locadora.resources;
 
 import org.locadora.domain.Movie;
+import org.locadora.domain.enums.MovieStatus;
 import org.locadora.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/rest/movie")
@@ -33,11 +37,17 @@ public class MovieResource {
   @Autowired
   private MovieService service;
 
-  @GetMapping(value="/findAvailable")
-  public ResponseEntity<Movie> findAvailableMovies() {
-    //TODO
-    System.out.println("Helloworld");
-    return ResponseEntity.ok().body(new Movie());
+  @GetMapping(value="/findByStatus")
+  public ResponseEntity<List<Movie>> findByStatus(@RequestParam(value="status") String status) {
+    List<Movie> movies = service.findByStatus(MovieStatus.valueOf(status.toUpperCase()).getCod());
+
+    return ResponseEntity.ok().body(movies);
+  }
+
+
+  @GetMapping(value="/findByDirector")
+  public ResponseEntity<Movie> findByDirector(@RequestParam(value="director") String director){
+    return ResponseEntity.ok().body(service.findByDirector(director));
   }
 
 

@@ -16,43 +16,18 @@
  * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *
  ********************************************************************************************************************/
-package org.locadora.domain.enums;
+package org.locadora.services.exceptions;
 
-public enum MovieStatus {
+public class ObjectNotFoundException extends RuntimeException {
 
-  AVAILABLE(1, "Available"),
-  UNAVAILABLE(2, "Unavailable");
+  private static final long serialVersionUID = 1L;
 
-  private int cod;
-  private String description;
-
-  MovieStatus(int cod, String description) {
-    this.cod = cod;
-    this.description = description;
+  public ObjectNotFoundException(String msg) {
+    super(msg);
   }
 
-  public int getCod() {
-    return cod;
+  public ObjectNotFoundException(String msg, Throwable cause) {
+    super(msg, cause);
   }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public static MovieStatus toEnum(Integer cod) {
-
-    if (cod == null) {
-      return null;
-    }
-
-    for (MovieStatus x : MovieStatus.values()) {
-      if (cod.equals(x.getCod())) {
-        return x;
-      }
-    }
-
-    throw new IllegalArgumentException("Invalid Id: " + cod);
-  }
-
 
 }
