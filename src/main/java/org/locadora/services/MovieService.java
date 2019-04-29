@@ -43,14 +43,40 @@ public class MovieService {
                 .concat(Movie.class.getName())));
   }
 
-  public Movie findByDirector(String director) {
-    Optional<Movie> movie = repo.findByDirector(director);
+  public List<Movie> findByTitle(String title) {
+    Optional<List<Movie>> movie = repo.findByTitle(title);
+    return movie
+        .orElseThrow(() ->
+            new ObjectNotFoundException("Movie with a "
+                .concat(title)
+                .concat(" as title not found! Class Type: ")
+                .concat(Movie.class.getName())));
+  }
+
+  public List<Movie> findByDirector(String director) {
+    Optional<List<Movie>> movie = repo.findByDirector(director);
     return movie
         .orElseThrow(() ->
             new ObjectNotFoundException("Movie with a "
                 .concat(director)
                 .concat(" as director not found! Class Type: ")
                 .concat(Movie.class.getName())));
+  }
+
+  public Movie findByDirectorAndTitleAndQuantityGreaterThan(String director, String title, int quantity) {
+    Optional<Movie> movie = repo.findByDirectorAndTitleAndQuantityGreaterThanEqual(director, title, quantity);
+    return movie
+        .orElseThrow(() ->
+            new ObjectNotFoundException("Movie with a "
+                .concat(director)
+                .concat(" as director and ")
+                .concat(title)
+                .concat(" as title not found! Class Type: ")
+                .concat(Movie.class.getName())));
+  }
+
+  public void update(Movie movie) {
+    repo.save(movie);
   }
 
 }

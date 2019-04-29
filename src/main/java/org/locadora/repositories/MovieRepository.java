@@ -15,5 +15,11 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
   Optional<List<Movie>> findByStatus(Integer status);
 
   @Transactional(readOnly = true)
-  Optional<Movie> findByDirector(String director);
+  Optional<List<Movie>> findByDirector(String director);
+
+  @Transactional(readOnly = true)
+  Optional<List<Movie>> findByTitle(String title);
+
+  @Transactional(readOnly = true)
+  Optional<Movie> findByDirectorAndTitleAndQuantityGreaterThanEqual(String director, String title, Integer quantity);
 }

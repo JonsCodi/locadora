@@ -42,15 +42,6 @@ public class DBService {
     clientRepository.saveAll(clients);
     movieRepository.saveAll(movies);
 
-    addClientAndMovies(clients, movies, 0, "Tarantino");
-
-    addClientAndMovies(clients, movies, 1, "Sean Penn");
-
-    addClientAndMovies(clients, movies, 2, "Zack Snyder");
-
-    clientRepository.saveAll(clients);
-    movieRepository.saveAll(movies);
-
   }
 
   private void addClientAndMovies(List<Client> clients, List<Movie> movies, int index, String director) {

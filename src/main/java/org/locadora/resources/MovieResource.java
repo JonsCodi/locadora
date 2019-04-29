@@ -20,6 +20,7 @@ package org.locadora.resources;
 
 import org.locadora.domain.Movie;
 import org.locadora.domain.enums.MovieStatus;
+import org.locadora.dto.MovieDTO;
 import org.locadora.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,16 +40,34 @@ public class MovieResource {
   private MovieService service;
 
   @GetMapping(value="/findByStatus")
-  public ResponseEntity<List<Movie>> findByStatus(@RequestParam(value="status") String status) {
+  public ResponseEntity<List<MovieDTO>> findByStatus(@RequestParam(value="status") String status) {
     List<Movie> movies = service.findByStatus(MovieStatus.valueOf(status.toUpperCase()).getCod());
+    List<MovieDTO> movieDTOS = movieToMovieDTO(movies);
 
-    return ResponseEntity.ok().body(movies);
+    return ResponseEntity.ok().body(movieDTOS);
   }
 
-
   @GetMapping(value="/findByDirector")
-  public ResponseEntity<Movie> findByDirector(@RequestParam(value="director") String director){
-    return ResponseEntity.ok().body(service.findByDirector(director));
+  public ResponseEntity<List<MovieDTO>> findByDirector(@RequestParam(value="director") String director){
+    List<Movie> movies = service.findByDirector(director);
+    List<MovieDTO> movieDTOS = movieToMovieDTO(movies);
+
+    return ResponseEntity.ok().body(movieDTOS);
+  }
+
+  @GetMapping(value= "/findByTitle")
+  public ResponseEntity<List<MovieDTO>> findByTitle(@RequestParam(value="title") String title){
+    List<Movie> movies = service.findByTitle(title);
+    List<MovieDTO> movieDTOS = movieToMovieDTO(movies);
+
+    return ResponseEntity.ok().body(movieDTOS);
+  }
+
+  private List<MovieDTO> movieToMovieDTO(List<Movie> movies) {
+    List<MovieDTO> movieDTOS = new ArrayList<>();
+
+    movies.forEach(movie -> movieDTOS.add(new MovieDTO(movie.getTitle(), movie.getDirector())));
+    return movieDTOS;
   }
 
 
