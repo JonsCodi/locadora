@@ -28,19 +28,19 @@ Checa a sua instalação:
 docker-compose --version
 ````
 
-### Agora que está tudo pronto para subir a aplicação
+### Agora que está tudo pronto para subir a aplicação... Vamos la!
 
 Este projeto foi separado em dois tipos de perfis, irei dizer como subir o serviço dentro de um container fazendo com que o perfil desejado seja adotado ao projeto.
 
 ### Perfil Test
 
-Este é o passo mais simples, basta executar o seguindo comando: 
+Este é o passo mais simples, basta executar o seguinte comando: 
 ````
 docker run -p 8091:8080 -e "SPRING_PROFILES_ACTIVE=test" --name locadora-rest-api jonasjava/locadora-spring-boot
 ````
 Explicando parâmetros: 
 * -p -> É a porta onde o seu serviço irá operar, neste caso estou pedindo para liberar a porta 8091 do host e a 8080 do container.. izi pizi
-* -e -> É a nossa variavel de ambiente que faz a nossa aplicação Spring identificar em qual projeto ele deve funcionar
+* -e -> É a nossa variavel de ambiente que faz a nossa aplicação Spring identificar em qual profile ele deve funcionar
 * --name -> Nome do nosso container..
 
 E eras isso..
@@ -104,10 +104,12 @@ networks:
 * Passei a network que ele irá trabalhar.
 * Portas que estará rodando no meu host e no serviço
 * Variáveis de ambiente para ele se comunicar com o banco de dados, qual database ele irá funcionar, nome do usuario e a porta onde encontra-se o serviço. E claro, o perfil no qual a minha aplicação irá funcionar.
-* E por último, passamos um commando para ele quando for subir, é o mesmo que: 
+* E por último, passamos um commando para ele quando for subir. É o mesmo que: 
 ````
 java -jar locadora.jar -Dspring.profiles.active=dev
 ````  
+
+## Aplicação no AR? Então bora testar.
 
 Após subir a apliação do modo que desejas, faça um pequeno teste com o comando: 
 ````$xslt
