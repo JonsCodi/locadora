@@ -32,9 +32,9 @@ public class DBService {
     Client ham = new Client("Ham", "ham@hotmail.com", "admin");
     Client xen = new Client("Xen", "xen@hotmail.com", "admin");
 
-    Movie django = new Movie("Django", "Tarantino", 0, MovieStatus.UNAVAILABLE);
+    Movie django = new Movie("Django", "Tarantino", 1, MovieStatus.AVAILABLE);
     Movie intoWild = new Movie("Into the Wild", "Sean Penn", 1,MovieStatus.AVAILABLE);
-    Movie whatchman = new Movie("Whatchmen", "Zack Snyder", 12, MovieStatus.AVAILABLE);
+    Movie whatchman = new Movie("Whatchmen", "Zack Snyder", 1, MovieStatus.AVAILABLE);
 
     List<Movie> movies = Arrays.asList(django, intoWild, whatchman);
     List<Client> clients = Arrays.asList(sean, ham, xen);

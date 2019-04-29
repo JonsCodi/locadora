@@ -1,24 +1,11 @@
-/*********************************************************************************************************************
- *
- * COPYRIGHT 2017 TETRABIT DO BRASIL
- *
- * Terms of Use: This source code is licensed under the
- *
- * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) license,
- *
- * where a full copy of these terms follow this work in the LICENSE file and is also available at:
- *
- * https://creativecommons.org/licenses/by-nc-nd/4.0/
- *
- * You may not use this source code except in compliance with this License.
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *
- ********************************************************************************************************************/
+
 package org.locadora.resources;
 
-import com.google.gson.Gson;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.locadora.domain.Client;
 import org.locadora.domain.Movie;
 import org.locadora.domain.enums.MovieStatus;
@@ -27,9 +14,9 @@ import org.locadora.dto.MovieDTO;
 import org.locadora.services.ClientService;
 import org.locadora.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+@Api(value = "Client", description = "Client WebService")
 @RestController
 @RequestMapping(value = "/rest/client")
 public class ClientResource {
@@ -49,16 +37,14 @@ public class ClientResource {
   @Autowired
   private MovieService movieService;
 
-  @PostMapping(value = "/add")
-  public ResponseEntity<Object> add(@RequestBody ClientDTO clientDTO) {
-    //TODO
-
-    return ResponseEntity.ok().body("");
-  }
-
-  @PutMapping(value = "/i-want-some-movies")
-  public ResponseEntity<Void> wantAMovie(@RequestBody String json) {
-    ClientDTO clientDTO = new Gson().fromJson(json, ClientDTO.class);
+  @ApiOperation(value = "Usado para alugar um ou mais filmes.", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @ApiResponses( {
+      @ApiResponse(code = 404, message = "Filme nao encontrado."),
+   }
+  )
+  @PutMapping(value = "/i-want-some-movies", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public ResponseEntity<Void> iWantSomeMovie(@ApiParam(value="ClientDTO", name="clientDTO", required = true)
+                                         @RequestBody ClientDTO clientDTO) {
     Client client = clientService.findByEmail(clientDTO.getEmail());
 
     for(MovieDTO movieDTO : clientDTO.getMovies()){
@@ -69,10 +55,18 @@ public class ClientResource {
     return ResponseEntity.noContent().build();
   }
 
-  @GetMapping(value = "/my-movies")
-  public ResponseEntity<List<MovieDTO>> findAll(@RequestParam("email") String email){
+  @ApiOperation(value = "Busca todos os seus filmes alugados.")
+  @ApiResponses( {
+      @ApiResponse(code = 404, message = "Voce nao possui filmes.")
+    }
+  )
+  @GetMapping(value = "/my-movies", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public ResponseEntity<List<MovieDTO>> findMyMovies(@RequestParam("email") String email){
     Client client = clientService.findByEmail(email);
     List<MovieDTO> moviesDTO = new ArrayList<>();
+
+    if(client.getMovies().isEmpty())
+      return ResponseEntity.notFound().build();
 
     for(Movie movie : client.getMovies()){
       MovieDTO movieDTO = new MovieDTO(movie.getDirector(), movie.getTitle());
@@ -82,10 +76,20 @@ public class ClientResource {
     return ResponseEntity.ok().body(moviesDTO);
   }
 
-  @PutMapping(value = "/return-it")
-  public ResponseEntity<Void> returnIt(@RequestBody String json){
-    ClientDTO clientDTO = new Gson().fromJson(json, ClientDTO.class);
+  @ApiOperation(value = "Usado para devolver o Filme.", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @ApiResponses( {
+      @ApiResponse(code = 404, message = "Voce nao possui filmes para devolver."),
+      @ApiResponse(code = 204, message = "Filme devolvido.")
+    }
+  )
+  @PutMapping(value = "/return-it", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public ResponseEntity<Void> returnIt(@ApiParam(value="ClientDTO", name="clientDTO", required = true)
+                                       @RequestBody ClientDTO clientDTO){
+
     Client client = clientService.findByEmail(clientDTO.getEmail());
+
+    if(client.getMovies().isEmpty())
+      return ResponseEntity.notFound().build();
 
     client.getMovies().forEach(movie -> updateWhenReturnIt(client, movie, clientDTO.getMovies()));
 
@@ -117,10 +121,10 @@ public class ClientResource {
         if(movie.getQuantity() == 1)
           movie.setStatus(MovieStatus.AVAILABLE.getCod());
 
-        clientService.update(client);
         movieService.update(movie);
       }
     }
+    clientService.update(client);
 
   }
 }
