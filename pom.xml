@@ -10,7 +10,7 @@
     </parent>
     <groupId>org</groupId>
     <artifactId>locadora</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>locadora</name>
     <packaging>jar</packaging>
     <description>API REST para consulta de filmes e suas relacoes entre clientes</description>
