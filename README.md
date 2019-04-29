@@ -3,7 +3,7 @@
 Este projeto foi construído em cima do ecossistema do Spring, utilizando o Spring boot como template inicial do projeto
 
 
-### Pre-requisitos - Estar usando S.O Linux
+## Pre-requisitos - Estar usando S.O Linux
  
 É necessário possuir o docker instalado em sua máquina. E para instalar é só executar o seguite comando: 
 ````
@@ -28,11 +28,11 @@ Checa a sua instalação:
 docker-compose --version
 ````
 
-###gora que está tudo pronto para subir a aplicação
+### Agora que está tudo pronto para subir a aplicação
 
 Este projeto foi separado em dois tipos de perfis, irei dizer como subir o serviço dentro de um container fazendo com que o perfil desejado seja adotado ao projeto.
 
-###Perfil Test
+### Perfil Test
 
 Este é o passo mais simples, basta executar o seguindo comando: 
 ````
@@ -45,7 +45,7 @@ Explicando parâmetros:
 
 E eras isso..
 
-###Perfil Dev
+### Perfil Dev
 
 Aqui não podemos usar o mesmo modo usado no passo anterior, pois o perfil dev funciona com um Banco de dados relacional, que neste caso é o Mysql.
 
@@ -91,9 +91,9 @@ networks:
   locadora-network:
 ```` 
 
-###Ta e o que esse compose faz? 
+### Ta e o que esse compose faz? 
 
-###Vamos lá. 
+### Vamos lá. 
 * Primeiro eu dei a ordem de subir um serviço(container) utilizando o mysql:5.6 como imagem base.
 * Usando a rede locadora-network que foi criado para fazer a comunicação entre os meus serviços.
 * liberei a porta 6603 do host fazendo a comunicação para a porta 3306 do serviço.
