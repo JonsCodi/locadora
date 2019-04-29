@@ -1,6 +1,6 @@
 # LOCADORA REST API
 
-######Este projeto foi construído em cima do ecossistema do Spring, utilizando o Spring boot como template inicial do projeto
+Este projeto foi construído em cima do ecossistema do Spring, utilizando o Spring boot como template inicial do projeto
 
 
 ### Pre-requisitos - Estar usando S.O Linux
