@@ -39,7 +39,7 @@ public class MovieService {
         .orElseThrow(() ->
             new ObjectNotFoundException("Movie with status "
                 .concat(MovieStatus.toEnum(status).getDescription())
-                .concat(" as director not found! Class Type: ")
+                .concat(" not found! Class Type: ")
                 .concat(Movie.class.getName())));
   }
 
