@@ -1,0 +1,36 @@
+version: "3.5"
+services:
+  db:
+    container_name: db_mysql
+    image: mysql:5.6
+    restart: always
+    networks:
+      - locadora-network
+    ports:
+      - 6603:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=db_locadora
+      - MYSQL_USER=locadora
+      - MYSQL_PASSWORD=locadora
+
+  locadora-rest-api:
+    container_name: locadora-rest-api
+    image: jonasjava/locadora-spring-boot
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - locadora-network
+    ports:
+      - 8091:8080
+    environment:
+      - DATABASE_HOST="db"
+      - DATABASE_USER=locadora
+      - DATABASE_NAME=db_locadora
+      - DATABASE_PORT=6603
+      - SPRING_PROFILES_ACTIVE=dev
+    command: --spring.profiles.active=dev
+
+networks:
+  locadora-network:
