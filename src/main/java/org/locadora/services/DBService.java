@@ -31,13 +31,20 @@ public class DBService {
     Client sean = new Client("Sean", "sean@gmail.com", "admin");
     Client ham = new Client("Ham", "ham@hotmail.com", "admin");
     Client xen = new Client("Xen", "xen@hotmail.com", "admin");
+    Client usuario_1 = new Client("user1", "user1@hotmail.com", "admin");
+    Client usuario_2 = new Client("user2", "user2@hotmail.com", "admin");
+    Client usuario_3 = new Client("user3", "user3@hotmail.com", "admin");
 
-    Movie django = new Movie("Django", "Tarantino", 1, MovieStatus.AVAILABLE);
-    Movie intoWild = new Movie("Into the Wild", "Sean Penn", 1,MovieStatus.AVAILABLE);
-    Movie whatchman = new Movie("Whatchmen", "Zack Snyder", 1, MovieStatus.AVAILABLE);
+    Movie django = new Movie("Django", "Tarantino", 5, MovieStatus.AVAILABLE);
+    Movie intoWild = new Movie("Into the Wild", "Sean Penn", 5,MovieStatus.AVAILABLE);
+    Movie whatchmen = new Movie("Whatchmen", "Zack Snyder", 5, MovieStatus.AVAILABLE);
+    Movie coherence = new Movie("Coherence", "James Ward", 5, MovieStatus.AVAILABLE);
+    Movie ex_Machina = new Movie("Ex Machina", "Alex Garland", 5,MovieStatus.AVAILABLE);
+    Movie annihilation = new Movie("Annihilation", "Alex Garland", 5, MovieStatus.AVAILABLE);
 
-    List<Movie> movies = Arrays.asList(django, intoWild, whatchman);
-    List<Client> clients = Arrays.asList(sean, ham, xen);
+
+    List<Movie> movies = Arrays.asList(django, intoWild, whatchmen, coherence, ex_Machina, annihilation);
+    List<Client> clients = Arrays.asList(sean, ham, xen, usuario_1, usuario_2, usuario_3);
 
     clientRepository.saveAll(clients);
     movieRepository.saveAll(movies);

@@ -126,4 +126,13 @@ Agora que você possui a sua aplicação rodando, dê uma olhada na documentaç�
 
 [Swagger](http://localhost:8091/swagger-ui.html) Toda a documentação de como usar a API para possíveis integrações está aqui, usado o framework Swagger para criar..
 
+Você pode usar os seguintes emails para usar alugar os filmes desta locadora:
+
+* sean@gmail.com
+* ham@hotmail.com
+* xen@gmail.com
+* user1@gmail.com
+* user2@gmail.com
+* user3@gmail.com
+
 Então é isso, até mais =D
