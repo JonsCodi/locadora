@@ -28,11 +28,11 @@ Checa a sua instalação:
 docker-compose --version
 ````
 
-#####Agora que está tudo pronto para subir a aplicação
+###gora que está tudo pronto para subir a aplicação
 
 Este projeto foi separado em dois tipos de perfis, irei dizer como subir o serviço dentro de um container fazendo com que o perfil desejado seja adotado ao projeto.
 
-####Perfil Test
+###Perfil Test
 
 Este é o passo mais simples, basta executar o seguindo comando: 
 ````
@@ -45,7 +45,7 @@ Explicando parâmetros:
 
 E eras isso..
 
-####Perfil Dev
+###Perfil Dev
 
 Aqui não podemos usar o mesmo modo usado no passo anterior, pois o perfil dev funciona com um Banco de dados relacional, que neste caso é o Mysql.
 
@@ -92,7 +92,8 @@ networks:
 ```` 
 
 ###Ta e o que esse compose faz? 
-####Vamos lá. 
+
+###Vamos lá. 
 * Primeiro eu dei a ordem de subir um serviço(container) utilizando o mysql:5.6 como imagem base.
 * Usando a rede locadora-network que foi criado para fazer a comunicação entre os meus serviços.
 * liberei a porta 6603 do host fazendo a comunicação para a porta 3306 do serviço.
@@ -117,7 +118,7 @@ Resultado esperado:
 {"timestamp":"2019-04-29T21:02:01.320+0000","status":404,"error":"Not Found","message":"No message available","path":"/"}
 ````
 
-Desconsidere a hora é claro. 
+Desconsidere o timestamp é claro. 
 
 Agora que você possui a sua aplicação rodando, dê uma olhada na documentação REST API, acessando o link: 
 
